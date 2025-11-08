@@ -11,10 +11,10 @@ def f(pt):
 
 fnp = np.vectorize(f)
 
-delta = 0.1 # step size for computation
-epsilon = 0.01 # we consider a point to be a zero of f if f(x,y,z) < epsilon
+delta = 0.05 # step size for computation
+epsilon = 0.005 # we consider a point to be a zero of f if f(x,y,z) < epsilon
         # TODO: maybe let epsilon depend on the distance from the origin
-bound = 5 # we consider x,y,z all between -bound and bound
+bound = 1 # we consider x,y,z all between -bound and bound
 steps = m.ceil(bound * 2 / delta)
 
 X = np.arange(-bound, bound, delta)
@@ -28,9 +28,12 @@ lst = np.stack([xv, yv, zv], axis=-1).reshape(-1, 3)
 def cond(f, pt, e):
     return f(pt) < e
 
-allowed_vals = list(filter(lambda pt : cond(f, pt, epsilon), lst))
+allowed_vals = np.array(list(filter(lambda pt : cond(f, pt, epsilon), lst)))
 
-print(allowed_vals)
+tr = np.transpose(allowed_vals)
 
-# ax = plt.figure().add_subplot(projection='3d')
-# ax.plot_trisurf()
+
+ax = plt.figure().add_subplot(projection='3d')
+ax.scatter(tr[0], tr[1], tr[2])
+
+plt.show()
