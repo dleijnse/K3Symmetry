@@ -30,10 +30,10 @@ def plot_scatter():
 
     lst = np.stack([xv, yv, zv], axis=-1).reshape(-1, 3)
 
-    def cond(f, pt, e):
+    def cond(fpt, pt, e):
         return f(pt) < e
 
-    allowed_vals = np.array(list(filter(lambda pt : cond(f, pt, epsilon), lst)))
+    allowed_vals = np.array(list(filter(lambda pt : cond(fpt, pt, epsilon), lst)))
 
     tr = np.transpose(allowed_vals)
 
