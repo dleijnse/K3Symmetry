@@ -7,12 +7,12 @@ def f(pt):
     x = pt[0]
     y = pt[1]
     z = pt[2]
-    return 1 - x**2 - y**2 - z**2 + x*y*z + x**4 + y**4 + z**4
+    return 0.4 + 0.7 * (x**2 + y**2 + z**2) + 1.6 * x*y*z - 1.3 *  (x**4 + y**4 + z**4)
 
 fnp = np.vectorize(f)
 
 delta = 0.05 # step size for computation
-epsilon = 0.005 # we consider a point to be a zero of f if f(x,y,z) < epsilon
+epsilon = 0.001 # we consider a point to be a zero of f if f(x,y,z) < epsilon
         # TODO: maybe let epsilon depend on the distance from the origin
 bound = 1 # we consider x,y,z all between -bound and bound
 steps = m.ceil(bound * 2 / delta)
